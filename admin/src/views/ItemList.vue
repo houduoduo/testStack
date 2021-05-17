@@ -1,16 +1,22 @@
 <template>
   <div>
-    <h1>分类列表</h1>
+    <h1>物品列表</h1>
     <el-table :data="items">
       <el-table-column prop="_id"
                        label="ID"
                        width="260">
       </el-table-column>
-      <el-table-column prop="parent.name"
-                       label="上级分类">
+      <el-table-column prop="name"
+                       label="物品名称">
       </el-table-column>
       <el-table-column prop="name"
-                       label="分类名称">
+                       label="物品Icon">
+        <template slot-scope="scope">
+<img
+               :src="scope.row.icon"
+               height="30rem"
+               class="avatar">
+        </template>
       </el-table-column>
       <el-table-column fixed="right"
                        label="操作"
@@ -19,7 +25,7 @@
           <el-button type="text"
                      size="small"
                      :data="scope"
-                     @click="$router.push(`/categories/edit/${scope.row._id}`)">编辑</el-button>
+                     @click="$router.push(`/items/edit/${scope.row._id}`)">编辑</el-button>
           <el-button type="text"
                      size="small"
                      :data="scope"
@@ -42,7 +48,7 @@ export default {
   },
   methods: {
     async getList() {
-      const res = await this.$http.get('rest/categories')
+      const res = await this.$http.get('rest/items')
       console.log(res)
       this.items = res.data
     },
@@ -52,7 +58,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        const res = await this.$http.delete(`rest/categories/${row._id}`)
+        const res = await this.$http.delete(`rest/items/${row._id}`)
         console.log(res)
         this.$message({
           type: 'success',

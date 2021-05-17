@@ -38,7 +38,17 @@
     "env": {
       "node": true
     },
-    "rules": {}
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "@vue/prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "prettier/prettier": "off"
+    }
   },
   "browserslist": [
     "> 1%",
